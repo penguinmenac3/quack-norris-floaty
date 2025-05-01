@@ -1,3 +1,4 @@
+import os
 import sys
 from setproctitle import setproctitle
 
@@ -13,6 +14,17 @@ def ui(config=None):
 
     exit_code = _create_ui(config=config)
     sys.exit(exit_code)
+
+
+def main():
+    if sys.argv[1] == "--blocking":
+        ui()
+    else:
+        args = ' '.join(sys.argv[1:])
+        if os.name == 'nt':  # Windows
+            os.system(f"start /b pythonw -m quack_norris_ui {args}")
+        else:  # Linux/Unix/Mac
+            os.system(f"python -m quack_norris_ui {args} &")
 
 
 if __name__ == "__main__":

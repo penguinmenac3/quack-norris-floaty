@@ -16,9 +16,16 @@ def main(config: dict[str, Any]):
     app.setApplicationDisplayName("Quack Norris")
 
     duck_path = os.path.join(os.path.dirname(__file__), "assets", "icons", "duck_low_res.png")
+    duck_small_path = os.path.join(os.path.dirname(__file__), "assets", "icons", "duck_low_res.png")
     config_duck_path = config.get("launcher_icon", duck_path)
     if os.path.exists(config_duck_path):
         duck_path = config_duck_path
+        duck_small_path = config_duck_path
+
+    # If we have a separate small icon, use it
+    config_duck_path = config.get("launcher_icon_small", duck_small_path)
+    if os.path.exists(config_duck_path):
+        duck_small_path = config_duck_path
 
     # Initialize global state
     launcher = LauncherWindow(config, duck_path)
@@ -45,7 +52,7 @@ def main(config: dict[str, Any]):
     def on_reset():
         launcher.reset_position()
 
-    setup_system_tray(app, on_hide, on_reset, duck_path)
+    setup_system_tray(app, on_hide, on_reset, duck_small_path)
     return app.exec()
 
 

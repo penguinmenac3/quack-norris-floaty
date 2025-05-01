@@ -1,12 +1,11 @@
 from typing import Any
-import urllib.parse
 
 from PySide6.QtCore import Qt
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import QMainWindow
 
 
-class ChatWindow(QMainWindow):
+class WebViewWindow(QMainWindow):
 
     def __init__(self, config: dict[str, Any]):
         super().__init__()
@@ -20,22 +19,10 @@ class ChatWindow(QMainWindow):
         self.setCentralWidget(self.web_view)
 
         # Set url for the PWA quack-norris
-        host = config.get("host", "")
-        port = config.get("port", "")
-        model = config.get("model", "")
-        query = ""
-        if host != "" and port != "":
-            query = urllib.parse.urlencode(
-                dict(apiEndpoint=f"http://{host}:{port}", apiKey="quack-norris", model=model)
-            )
-        if config["debug"]:
-            # If debugging, use local url, so we can show the vite server content
-            self.url = "http://localhost:5173/quack-norris/#chat&{query}".format(query=query)
+        if config.get("debug", False):
+            self.url = config.get("url-debug", "http://localhost:5173/quack-norris/")
         else:
-            default_url = (
-                "https://penguinmenac3.github.io/quack-norris/#chat&{query}"  # PLACEHOLDER
-            )
-            self.url = config.get("chat_url", default_url).format(query=query)
+            self.url = config.get("url", "https://penguinmenac3.github.io/quack-norris/")
         self.web_view.setUrl(self.url)
 
     def align_with_launcher(self, x, y, w, h, screen_x, screen_y, screen_w, screen_h):
