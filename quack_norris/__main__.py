@@ -2,7 +2,7 @@ import os
 import sys
 from setproctitle import setproctitle
 
-from quack_norris.common.config import read_config
+from quack_norris.config import read_config
 
 
 def ui(config=None):
@@ -17,14 +17,15 @@ def ui(config=None):
 
 
 def main():
-    if sys.argv[1] == "--blocking":
+    if len(sys.argv) > 1 and sys.argv[1] == "--blocking":
         ui()
     else:
+        print("Starting async...")
         args = ' '.join(sys.argv[1:])
         if os.name == 'nt':  # Windows
-            os.system(f"start /b pythonw -m quack_norris_ui {args}")
+            os.system(f"start /b pythonw -m quack_norris {args}")
         else:  # Linux/Unix/Mac
-            os.system(f"python -m quack_norris_ui {args} &")
+            os.system(f"python -m quack_norris {args} &")
 
 
 if __name__ == "__main__":

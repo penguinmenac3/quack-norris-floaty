@@ -21,7 +21,7 @@ dev = [
 ]
 
 [project.scripts]
-quack-norris-ui = "quack_norris_ui.__main__:ui"
+quack-norris-ui = "quack_norris.__main__:main"
 
 [build-system]
 requires = ["hatchling"]

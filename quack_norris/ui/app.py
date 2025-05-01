@@ -6,7 +6,7 @@ from PySide6.QtCore import QPoint
 from PySide6.QtGui import QAction, QCursor, QIcon
 from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
-from quack_norris.ui.views.chat_view import ChatWindow
+from quack_norris.ui.views.web_view import WebViewWindow
 from quack_norris.ui.views.launcher import LauncherWindow
 
 
@@ -30,20 +30,20 @@ def main(config: dict[str, Any]):
     # Initialize global state
     launcher = LauncherWindow(config, duck_path)
     launcher.show()
-    chat_window = ChatWindow(config)
-    chat_window.hide()
+    web_view_window = WebViewWindow(config)
+    web_view_window.hide()
 
     # Connect launcher and chat window
     launcher.sig_toggle_chat.connect(
-        lambda: chat_window.show() if not chat_window.isVisible() else chat_window.hide()
+        lambda: web_view_window.show() if not web_view_window.isVisible() else web_view_window.hide()
     )
-    launcher.sig_position.connect(lambda *args: chat_window.align_with_launcher(*args))
+    launcher.sig_position.connect(lambda *args: web_view_window.align_with_launcher(*args))
     launcher.sig_exit.connect(lambda: sys.exit(0))
 
     # Run the app
     def on_hide():
-        if chat_window.isVisible():
-            chat_window.hide()
+        if web_view_window.isVisible():
+            web_view_window.hide()
         if launcher.isVisible():
             launcher.hide()
         else:
