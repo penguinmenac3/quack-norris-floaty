@@ -15,9 +15,9 @@ def main(config: dict[str, Any]):
     app.setApplicationName("quack-norris-ui")
     app.setApplicationDisplayName("Quack Norris")
 
-    duck_path = os.path.join(os.path.dirname(__file__), "assets", "icons", "duck_low_res.png")
-    duck_small_path = os.path.join(os.path.dirname(__file__), "assets", "icons", "duck_low_res.png")
-    config_duck_path = config.get("launcher_icon", duck_path)
+    duck_path = os.path.join(os.path.dirname(__file__), "assets", "icons", "duck.png")
+    duck_small_path = os.path.join(os.path.dirname(__file__), "assets", "icons", "duck.png")
+    config_duck_path = config.get("launcher_icon", "")
     if os.path.exists(config_duck_path):
         duck_path = config_duck_path
         duck_small_path = config_duck_path

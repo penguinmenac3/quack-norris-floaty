@@ -1,6 +1,6 @@
 # 🦆 Quack Norris Floaty 
 
-![picture of quack norris](quack_norris/ui/assets/icons/duck_low_res.png)
+![picture of quack norris](quack_norris/ui/assets/icons/duck.png)
 
 This code will allow you to create a floaty for wrapping a web app.
 By default it will wrap the Quack Norris AI chat app.
@@ -11,9 +11,6 @@ But you can customize it via simple configuration to use any image and any url.
 ```bash
 # for server use (just backend)
 pip install quack-norris
-
-# for desktop use (includes ui)
-pip install quack-norris[ui]
 ```
 
 
